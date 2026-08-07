@@ -17,10 +17,7 @@ To install `overtype-mode` search for _overtype-mode_ in the Install pane of the
 
 Commands available in `atom-workspace`:
 
-- `overtype-mode:toggle-global`: toggle overtype mode for all editors and set the default for editors opened afterwards.
-
-Commands available in `atom-text-editor`:
-
+- `overtype-mode:toggle-global`: toggle overtype mode for all editors and set the default for editors opened afterwards,
 - `overtype-mode:toggle-editor`: toggle overtype mode for the current editor only.
 
 ## Customization
