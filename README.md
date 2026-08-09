@@ -15,7 +15,7 @@ To install `overtype-mode` search for _overtype-mode_ in the Install pane of the
 
 ## Commands
 
-Commands available in `atom-workspace`:
+Commands available in `lumine-workspace`:
 
 - `overtype-mode:toggle-global`: toggle overtype mode for all editors and set the default for editors opened afterwards,
 - `overtype-mode:toggle-editor`: toggle overtype mode for the current editor only.
@@ -25,7 +25,7 @@ Commands available in `atom-workspace`:
 The block cursor style can be adjusted in your `styles.css`:
 
 ```css
-atom-text-editor.overtype-cursor .cursors .cursor {
+lumine-text-editor.overtype-cursor .cursors .cursor {
   border-color: var(--syntax-cursor-color);
   background-color: rgb(from var(--syntax-cursor-color) r g b / 30%);
 }

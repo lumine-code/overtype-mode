@@ -1,4 +1,4 @@
-atom-text-editor.overtype-cursor .cursors .cursor {
+lumine-text-editor.overtype-cursor .cursors .cursor {
   opacity: 1;
   color: transparent;
   transition-property: background-color, border-color, opacity;
@@ -7,11 +7,11 @@ atom-text-editor.overtype-cursor .cursors .cursor {
   background-color: rgb(from var(--syntax-cursor-color) r g b / 20%);
 }
 
-atom-text-editor.overtype-cursor .cursors.blink-off .cursor {
+lumine-text-editor.overtype-cursor .cursors.blink-off .cursor {
   border: none;
 }
 
-atom-text-editor.overtype-cursor:not(.is-focused) .cursors .cursor {
+lumine-text-editor.overtype-cursor:not(.is-focused) .cursors .cursor {
   display: none;
 }
 
