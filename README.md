@@ -11,7 +11,7 @@ Replace existing text as you type instead of inserting.
 
 ## Installation
 
-To install `overtype-mode` search for _overtype-mode_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/overtype-mode`.
+To install `overtype-mode` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/overtype-mode`.
 
 ## Commands
 
@@ -33,7 +33,7 @@ lumine-text-editor.overtype-cursor .cursors .cursor {
 
 ## Services
 
-- **status-bar** (`^1.0.0`): consumed to show the overtype-mode indicator tile in the status bar.
+- `status-bar`: consumed to show the overtype-mode indicator tile in the status bar.
 
 ## Contributing
 
