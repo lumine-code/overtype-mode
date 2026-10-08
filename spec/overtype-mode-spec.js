@@ -36,4 +36,121 @@ describe("overtype-mode", () => {
     registration.dispose();
     editor.destroy();
   });
+
+  describe("status-bar edge ownership", () => {
+    let mainModule, workspaceElement, containers, edges;
+
+    beforeEach(async () => {
+      mainModule = (await lumine.packages.activatePackage("overtype-mode")).mainModule;
+      workspaceElement = lumine.views.getView(lumine.workspace);
+      jasmine.attachToDOM(workspaceElement);
+      lumine.config.set("overtype-mode.statusBar", true);
+      containers = [];
+      edges = [];
+    });
+
+    afterEach(() => {
+      for (const edge of edges) edge.dispose();
+      for (const container of containers) container.remove();
+    });
+
+    function statusBar() {
+      const container = document.createElement("div");
+      workspaceElement.appendChild(container);
+      containers.push(container);
+      return {
+        container,
+        addRightTile({ item }) {
+          container.appendChild(item);
+          return { destroy: () => item.remove() };
+        },
+      };
+    }
+
+    function connect(service) {
+      const edge = mainModule.consumeStatusBar(service);
+      edges.push(edge);
+      return edge;
+    }
+
+    it("removes only the tile and tooltip belonging to an old provider", () => {
+      const first = statusBar();
+      const second = statusBar();
+      const tooltip = spyOn(lumine.tooltips, "add").and.callThrough();
+      const oldEdge = connect(first);
+      const oldTooltip = tooltip.calls.mostRecent().returnValue;
+      const disposeTooltip = spyOn(oldTooltip, "dispose").and.callThrough();
+      connect(second);
+      oldEdge.dispose();
+
+      expect(first.container.querySelector(".overtype-mode-icon")).toBeNull();
+      expect(second.container.querySelector(".overtype-mode-icon")).not.toBeNull();
+      expect(disposeTooltip).toHaveBeenCalledTimes(1);
+    });
+
+    it("shares a provider's tile until the final edge goes away", () => {
+      const service = statusBar();
+      const firstEdge = connect(service);
+      const secondEdge = connect(service);
+      expect(service.container.querySelectorAll(".overtype-mode-icon").length).toBe(1);
+      firstEdge.dispose();
+
+      expect(service.container.querySelectorAll(".overtype-mode-icon").length).toBe(1);
+      secondEdge.dispose();
+      expect(service.container.querySelector(".overtype-mode-icon")).toBeNull();
+    });
+
+    it("updates every live provider and preserves editor mode through config changes", async () => {
+      const first = statusBar();
+      const second = statusBar();
+      connect(first);
+      connect(second);
+      const editor = await lumine.workspace.open();
+      mainModule.toggleGlobal();
+      expect(editor.isOvertypeMode()).toBe(true);
+      for (const service of [first, second]) {
+        expect(service.container.querySelector(".icon").classList.contains("active")).toBe(true);
+      }
+      lumine.config.set("overtype-mode.statusBar", false);
+      expect(editor.isOvertypeMode()).toBe(true);
+      for (const service of [first, second]) {
+        expect(service.container.querySelector(".overtype-mode-icon")).toBeNull();
+      }
+      lumine.config.set("overtype-mode.statusBar", true);
+      for (const service of [first, second]) {
+        expect(service.container.querySelectorAll(".overtype-mode-icon").length).toBe(1);
+        expect(service.container.querySelector(".icon").classList.contains("active")).toBe(true);
+      }
+    });
+
+    it("cleans manual edges on deactivation without removing a new generation's tile", async () => {
+      const service = statusBar();
+      const oldEdge = connect(service);
+      await lumine.packages.deactivatePackage("overtype-mode");
+      expect(service.container.querySelector(".overtype-mode-icon")).toBeNull();
+      mainModule = (await lumine.packages.activatePackage("overtype-mode")).mainModule;
+      connect(service);
+      oldEdge.dispose();
+
+      expect(service.container.querySelectorAll(".overtype-mode-icon").length).toBe(1);
+    });
+
+    it("retires a tile returned after its setting was disabled reentrantly", () => {
+      const service = statusBar();
+      const add = service.addRightTile;
+      let first = true;
+      service.addRightTile = (options) => {
+        const tile = add(options);
+        if (first) {
+          first = false;
+          lumine.config.set("overtype-mode.statusBar", false);
+        }
+        return tile;
+      };
+      connect(service);
+      expect(service.container.querySelector(".overtype-mode-icon")).toBeNull();
+      lumine.config.set("overtype-mode.statusBar", true);
+      expect(service.container.querySelectorAll(".overtype-mode-icon").length).toBe(1);
+    });
+  });
 });
