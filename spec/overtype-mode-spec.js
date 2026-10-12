@@ -1,3 +1,4 @@
+const windowService = require("./helpers/window-service");
 describe("overtype-mode", () => {
   it("activates and deactivates cleanly", async () => {
     await lumine.packages.activatePackage("overtype-mode");
@@ -68,7 +69,7 @@ describe("overtype-mode", () => {
     }
 
     function connect(service) {
-      const edge = mainModule.consumeStatusBar(service);
+      const edge = mainModule.consumeStatusBar(windowService(service));
       edges.push(edge);
       return edge;
     }

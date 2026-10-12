@@ -1,3 +1,4 @@
+const windowService = require("./helpers/window-service");
 describe("Overtype retirement ownership audit", () => {
   let main, editor, bar, leases, fragments;
   beforeEach(async () => {
@@ -27,14 +28,14 @@ describe("Overtype retirement ownership audit", () => {
           if (armed) {
             armed = false;
             main.activate();
-            leases.push(main.consumeStatusBar(newer));
+            leases.push(main.consumeStatusBar(windowService(newer)));
             replacement = main.statusBars.get(newer);
           }
         };
         return tile;
       },
     };
-    leases.push(main.consumeStatusBar(older));
+    leases.push(main.consumeStatusBar(windowService(older)));
     armed = true;
     main.deactivate();
     expect(main.statusBars?.get(newer)).toBe(replacement);
