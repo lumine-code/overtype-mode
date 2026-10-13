@@ -23,7 +23,9 @@
       "submenu": [
         {
           "label": "Toggle Overtype for This Editor",
-          "command": "overtype-mode:toggle-editor"
+          "command": "overtype-mode:toggle-editor",
+          "group": "mode",
+          "order": 10
         }
       ]
     }
