@@ -9,6 +9,8 @@ Replace existing text as you type instead of inserting.
 - **Status indicator**: shows the current mode and primary action, with a context menu for all editors and the current editor.
 - **Line-aware**: typing at the end of a line inserts rather than eating the newline.
 
+![Overwrite an existing value while preserving the surrounding text.](.github/demo.png)
+
 ## Installation
 
 To install `overtype-mode` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/overtype-mode`.

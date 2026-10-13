@@ -1,0 +1,17 @@
+{
+  "title": "overtype-mode",
+  "description": "Overwrite an existing value while preserving the surrounding text.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "5823b0133012233968c56b59f4d846c940348c34",
+  "mode": "normal",
+  "fontSettings": "default",
+  "themeSourceRevision": "6564a9e21899b5541e9c8f8006f9be6d6d72e6ad",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Overwrite an existing value while preserving the surrounding text.",
+      "width": 1000,
+      "height": 350
+    }
+  ]
+}
