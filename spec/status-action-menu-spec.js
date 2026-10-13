@@ -27,6 +27,10 @@ describe("overtype-mode status actions", () => {
       "overtype-mode:toggle-global",
       "overtype-mode:toggle-editor",
     ]);
+    expect(menu().map((item) => item.mouseBindingLabel)).toEqual(["LMB", "Shift+LMB"]);
+    const [tooltip] = lumine.tooltips.findTooltips(element);
+    expect(tooltip.options.keyBindingCommand).toBeUndefined();
+    expect(tooltip.getTitle()).toContain("Click to toggle.");
     element.dispatchEvent(new MouseEvent("mouseup", { button: 2 }));
     expect(main.global).toBe(false);
     element.dispatchEvent(new MouseEvent("mouseup", { button: 0 }));
