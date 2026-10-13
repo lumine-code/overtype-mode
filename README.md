@@ -6,7 +6,7 @@ Replace existing text as you type instead of inserting.
 
 - **Toggle mode**: switch overtype globally or per editor.
 - **Block cursor**: visual feedback while overtype mode is active.
-- **Status indicator**: shows the current mode in the status bar.
+- **Status indicator**: shows the current mode, with a context menu for all editors and the current editor; left-click changes all editors, and Shift-click changes the current editor.
 - **Line-aware**: typing at the end of a line inserts rather than eating the newline.
 
 ## Installation
