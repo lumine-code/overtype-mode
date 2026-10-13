@@ -17,6 +17,15 @@
           ]
         }
       ]
+    },
+    {
+      "label": "Edit",
+      "submenu": [
+        {
+          "label": "Toggle Overtype for This Editor",
+          "command": "overtype-mode:toggle-editor"
+        }
+      ]
     }
   ]
 }
