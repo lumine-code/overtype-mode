@@ -1,4 +1,9 @@
 describe("overtype-mode status actions", () => {
+  const { createRequire } = require("node:module");
+  const coreRequire = createRequire(
+    require("node:path").join(lumine.application.getResourcePath(), "package.json"),
+  );
+  const { humanizeKeystroke } = coreRequire("@lumine-code/underscore-plus");
   let main, lease, element, editor, window;
   const menu = () => lumine.contextMenu.templateForElement(element);
   beforeEach(async () => {
@@ -51,6 +56,15 @@ describe("overtype-mode status actions", () => {
     expect(main.global).toBe(false);
   });
 
+  it("shows the editor shortcut without changing the global shortcut", async () => {
+    expect(menu().map((item) => item.keyBindingLabel)).toEqual([
+      humanizeKeystroke("insert"),
+      humanizeKeystroke("alt-insert"),
+    ]);
+    await lumine.workspace.getActivePane().destroyItem(editor, true);
+    expect(menu().map((item) => item.keyBindingLabel)).toEqual([humanizeKeystroke("insert"), ""]);
+  });
+
   it("uses the active embedded editor and disables the local action without one", async () => {
     const fragment = lumine.workspace.buildTextEditor();
     const registration = lumine.textEditors.add(fragment, { role: "fragment" });
@@ -66,8 +80,10 @@ describe("overtype-mode status actions", () => {
       expect(fragment.isOvertypeMode()).toBe(true);
       expect(editor.isOvertypeMode()).toBe(false);
       expect(menu()[1].checked).toBe(true);
+      expect(menu()[1].keyBindingLabel).toBe(humanizeKeystroke("alt-insert"));
       item.getActiveEmbeddedTextEditor = () => undefined;
       expect(menu()[1].enabled).toBe(false);
+      expect(menu()[1].keyBindingLabel).toBe("");
       lumine.commands.dispatch(element, "overtype-mode:toggle-editor");
       expect(editor.isOvertypeMode()).toBe(false);
     } finally {
