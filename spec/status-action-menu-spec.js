@@ -27,16 +27,20 @@ describe("overtype-mode status actions", () => {
       "overtype-mode:toggle-global",
       "overtype-mode:toggle-editor",
     ]);
-    expect(menu().map((item) => item.mouseBindingLabel)).toEqual(["LMB", "Shift+LMB"]);
+    const dispatch = spyOn(lumine.commands, "dispatch").and.callThrough();
     const [tooltip] = lumine.tooltips.findTooltips(element);
     expect(tooltip.options.keyBindingCommand).toBe("overtype-mode:toggle-global");
     expect(tooltip.options.keyBindingExtra).toBeUndefined();
     expect(tooltip.getTitle()).toContain("Click to toggle.");
     element.dispatchEvent(new MouseEvent("mouseup", { button: 2 }));
     expect(main.global).toBe(false);
+    expect(dispatch).not.toHaveBeenCalled();
     element.dispatchEvent(new MouseEvent("mouseup", { button: 0 }));
     expect(menu().map((item) => item.checked)).toEqual([true, true]);
     element.dispatchEvent(new MouseEvent("mouseup", { button: 0, shiftKey: true }));
+    expect(dispatch.calls.allArgs().map(([, command]) => command)).toEqual(
+      menu().map((item) => item.command),
+    );
     expect(editor.isOvertypeMode()).toBe(false);
     expect(menu().map((item) => item.checked)).toEqual([true, false]);
   });

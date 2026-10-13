@@ -6,7 +6,7 @@ Replace existing text as you type instead of inserting.
 
 - **Toggle mode**: switch overtype globally or per editor.
 - **Block cursor**: visual feedback while overtype mode is active.
-- **Status indicator**: shows the current mode and primary click action, with a context menu for all editors and the current editor that lists the mouse shortcuts.
+- **Status indicator**: shows the current mode and primary action, with a context menu for all editors and the current editor.
 - **Line-aware**: typing at the end of a line inserts rather than eating the newline.
 
 ## Installation
@@ -19,6 +19,10 @@ Commands available in `lumine-workspace`:
 
 - `overtype-mode:toggle-global`: toggle overtype mode for all editors and set the default for editors opened afterwards,
 - `overtype-mode:toggle-editor`: toggle overtype mode for the current editor only.
+
+## Usage
+
+Left-click the status bar icon to toggle overtype for all editors, or Shift+left-click it to toggle overtype for the current editor. Right-click opens a menu with both actions.
 
 ## Customization
 
