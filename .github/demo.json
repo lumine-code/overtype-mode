@@ -1,17 +1,66 @@
 {
   "title": "overtype-mode",
   "description": "Overwrite an existing value while preserving the surrounding text.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "5823b0133012233968c56b59f4d846c940348c34",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "5aede69f320b31d96bff888f01f77fdf9291383c",
+  "themeSourceRevision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
   "mode": "normal",
   "fontSettings": "default",
-  "themeSourceRevision": "6564a9e21899b5541e9c8f8006f9be6d6d72e6ad",
+  "scenario": "demo.js",
+  "recipeHash": "c352e788e5d926deb7ce641ab500ce0377206684335e1cae6912e96df2ee4333",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1000, "height": 350 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "8be8f86075ad93df038610d82b3ac6d99329957d",
+      "dirty": false,
+      "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "package": {
+      "revision": "5aede69f320b31d96bff888f01f77fdf9291383c",
+      "dirty": false,
+      "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "overtype-mode": {
+      "revision": "5aede69f320b31d96bff888f01f77fdf9291383c",
+      "dirty": false,
+      "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "language-gfm": {
+      "revision": "be723ccf806fdd4a2a06638f6e881c09a53b4409",
+      "dirty": false,
+      "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "one-theme": {
+      "revision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
+      "dirty": false,
+      "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "more/processing.txt",
+      "sha256": "ae7dba49d05f581901beed84a13fb01d1403b2345a8cd5d4d6817f93d6287126"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "Overwrite an existing value while preserving the surrounding text.",
       "width": 1000,
-      "height": 350
+      "height": 350,
+      "sha256": "1dfe9d9046e466d44f13a08154c05f60ec476b5024e4febdaebc7b87ac1165a3"
     }
   ]
 }
