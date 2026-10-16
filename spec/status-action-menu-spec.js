@@ -84,6 +84,20 @@ describe("overtype-mode status actions", () => {
     }
   });
 
+  it("reports the saved focus editor's mode while another editor is active", async () => {
+    const other = await lumine.workspace.open(undefined, { split: "right" });
+    other.setOvertypeMode(false);
+    editor.setOvertypeMode(true);
+    const [global, local] = lumine.contextMenu.templateForEvent(
+      { target: element },
+      { focusTarget: editor.getElement() },
+    );
+    expect(lumine.workspace.getActiveTextEditor()).toBe(other);
+    expect(global.checked).toBe(false);
+    expect(local.enabled).toBe(true);
+    expect(local.checked).toBe(true);
+  });
+
   it("uses a focused embedded editor's shortcut and disables the local action without one", async () => {
     const fragment = lumine.workspace.buildTextEditor();
     const registration = lumine.textEditors.add(fragment, { role: "fragment" });
