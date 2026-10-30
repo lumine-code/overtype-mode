@@ -7,6 +7,30 @@ describe("overtype-mode", () => {
     expect(lumine.packages.isPackageActive("overtype-mode")).toBe(false);
   });
 
+  it("keeps a menu's editor choice tied to its saved target rather than another active editor", async () => {
+    await lumine.packages.activatePackage("overtype-mode");
+    const workspaceElement = lumine.views.getView(lumine.workspace);
+    jasmine.attachToDOM(workspaceElement);
+    const first = await lumine.workspace.open();
+    const second = await lumine.workspace.open();
+    first.setOvertypeMode(true);
+    second.setOvertypeMode(false);
+    const state = (command, target) => lumine.commands.getCommandState(command, { target });
+    expect(state("overtype-mode:toggle-editor", first.element)).toEqual({
+      type: "checkbox",
+      checked: true,
+    });
+    expect(state("overtype-mode:toggle-editor", second.element)).toEqual({
+      type: "checkbox",
+      checked: false,
+    });
+    expect(state("overtype-mode:toggle-global", first.element)).toEqual({
+      type: "checkbox",
+      checked: false,
+    });
+    await lumine.packages.deactivatePackage("overtype-mode");
+  });
+
   it("stops observing a removed editor and observes it once when re-added", async () => {
     const pack = await lumine.packages.activatePackage("overtype-mode");
     const mainModule = pack.mainModule;
