@@ -38,12 +38,12 @@ describe("overtype-mode status actions", () => {
     expect(tooltip.options.keyBindingCommand).toBe("overtype-mode:toggle-global");
     expect(tooltip.options.keyBindingExtra).toBeUndefined();
     expect(tooltip.getTitle()).toContain("Click to toggle.");
-    element.dispatchEvent(new MouseEvent("mouseup", { button: 2 }));
+    element.dispatchEvent(new MouseEvent("click", { button: 2 }));
     expect(main.global).toBe(false);
     expect(dispatch).not.toHaveBeenCalled();
-    element.dispatchEvent(new MouseEvent("mouseup", { button: 0 }));
+    element.click();
     expect(menu().map((item) => item.checked)).toEqual([true, true]);
-    element.dispatchEvent(new MouseEvent("mouseup", { button: 0, shiftKey: true }));
+    element.dispatchEvent(new MouseEvent("click", { button: 0, shiftKey: true }));
     expect(dispatch.calls.allArgs().map(([, command]) => command)).toEqual(
       menu().map((item) => item.command),
     );
@@ -53,7 +53,7 @@ describe("overtype-mode status actions", () => {
   it("retires the menu and mouse handler with its lease", () => {
     lease.dispose();
     expect(menu()).toEqual([]);
-    element.dispatchEvent(new MouseEvent("mouseup", { button: 0 }));
+    element.click();
     expect(main.global).toBe(false);
   });
 
