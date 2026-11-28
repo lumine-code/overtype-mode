@@ -15,6 +15,15 @@ lumine-text-editor.overtype-cursor:not(.is-focused) .cursors .cursor {
   display: none;
 }
 
+.status-bar .overtype-mode-icon {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
 .status-bar .overtype-mode-icon .icon::before {
   margin-right: 0px;
 }
